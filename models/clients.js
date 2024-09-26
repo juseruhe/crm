@@ -23,7 +23,7 @@ const Client = sequelize.define('clients', {
         allowNull: false
     },
     rewards: {
-        type: DataTypes.INT,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     membership: {
