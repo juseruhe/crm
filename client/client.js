@@ -9,14 +9,84 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const name_authorization = process.env.authorization
 
 router.post('/',async(req,res) => {
-    const {firstname,lastname,email,phone,mobile,rewards,membership} = req.body
+   
+    const {firstname,lastname,email,phone,mobile,rewards,membership} = req.body;
+    console.log("el texto es ",req.body)
     try{
-        const client = Client.create({firstname,lastname,email,phone,mobile,rewards,membership}) 
+        const client = await Client.create({firstname,lastname,email,phone,mobile,rewards,membership}) 
         res.status(200).json({message: 'Cliente creado con éxito'})
 
     }catch(e){
         res.status(500).json({message: "Error al crear un cliente",e})
     }
 } )
+
+router.get('/',async(req,res)=>{
+    try{
+    const clients = await Client.findAll();
+  res.status(200).json({message: "Clientes buscados con éxito", data: clients})
+    }catch(e){
+     res.status(500).json({message: "Error al buscar los clientes",e})
+    }
+})
+
+router.put('/:id',async(req,res)=>{
+    try{
+        const {id} = req.params
+        const {firstname,lastname,email,phone,mobile,rewards,membership} = req.body;
+        const client = await Client.findByPk(id);
+
+        if(!client){
+            res.status(404).json({message: "Cliente no encontrado"})
+        }
+
+        const update = await client.update({
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            phone: phone,
+            mobile: mobile,
+            rewards: rewards,
+            membership: membership
+        })
+
+      res.status(200).json({message: "Cliente Actualizado con éxito", data: client})
+        }catch(e){
+         res.status(500).json({message: "Error al actualizar el cliente",e})
+        }
+})
+
+router.delete('/:id',async (req,res)=> {
+    try{
+     const {id} = req.params
+     const client = await Client.findByPk(id)
+     
+     if(!client){
+        res.status(404).json({message: "Cliente no encontrado"})
+     }
+
+    await client.destroy()
+
+     res.status(200).json({message: "Cliente Eliminado con éxito"})
+    }catch(e){
+        res.status(500).json({message: "Error al eliminar el cliente",e})
+    }
+})
+
+router.get('/:id',async (req,res)=> {
+    try{
+     const {id} = req.params
+     const client = await Client.findByPk(id)
+     
+     if(!client){
+        res.status(404).json({message: "Cliente no encontrado"})
+     }
+
+
+     res.status(200).json({message: "Cliente Encontrado con éxito", data: client})
+    }catch(e){
+        res.status(500).json({message: "Error al eliminar el cliente",e})
+    }
+})
 
 module.exports = router
