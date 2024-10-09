@@ -10,10 +10,10 @@ const name_authorization = process.env.authorization
 
 router.post('/',async(req,res) => {
    
-    const {firstname,lastname,email,phone,mobile,rewards,membership} = req.body;
+    const {firstname,lastname,email,phone,mobile,nit} = req.body;
     console.log("el texto es ",req.body)
     try{
-        const client = await Client.create({firstname,lastname,email,phone,mobile,rewards,membership}) 
+        const client = await Client.create({firstname,lastname,email,phone,mobile,nit}) 
         res.status(200).json({message: 'Cliente creado con éxito'})
 
     }catch(e){
@@ -21,20 +21,22 @@ router.post('/',async(req,res) => {
     }
 } )
 
-router.get('/',async(req,res)=>{
-    try{
-    const clients = await Client.findAll();
-  res.status(200).json({message: "Clientes buscados con éxito", data: clients})
-    }catch(e){
-     res.status(500).json({message: "Error al buscar los clientes",e})
+
+router.get('/', async (req, res) => {
+    try {
+        const clients = await Client.findAll();
+        res.status(200).json(clients);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-})
+});
 
 router.put('/:id',async(req,res)=>{
     try{
         const {id} = req.params
-        const {firstname,lastname,email,phone,mobile,rewards,membership} = req.body;
-        const client = await Client.findByPk(id);
+        const {firstname,lastname,email,phone,mobile,nit} = req.body;
+        const client = await Client.findByPk(id)
+;
 
         if(!client){
             res.status(404).json({message: "Cliente no encontrado"})
@@ -46,8 +48,7 @@ router.put('/:id',async(req,res)=>{
             email: email,
             phone: phone,
             mobile: mobile,
-            rewards: rewards,
-            membership: membership
+           nit: nit
         })
 
       res.status(200).json({message: "Cliente Actualizado con éxito", data: client})
@@ -60,6 +61,7 @@ router.delete('/:id',async (req,res)=> {
     try{
      const {id} = req.params
      const client = await Client.findByPk(id)
+
      
      if(!client){
         res.status(404).json({message: "Cliente no encontrado"})
@@ -77,6 +79,7 @@ router.get('/:id',async (req,res)=> {
     try{
      const {id} = req.params
      const client = await Client.findByPk(id)
+
      
      if(!client){
         res.status(404).json({message: "Cliente no encontrado"})
@@ -89,4 +92,4 @@ router.get('/:id',async (req,res)=> {
     }
 })
 
-module.exports = router
+module.exports=router

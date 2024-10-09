@@ -22,14 +22,14 @@ const Client = sequelize.define('clients', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    rewards: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-    membership: {
-        type: DataTypes.BIGINT,
-        allowNull: false
-    }
+   nit: {
+    type: DataTypes.BIGINT,
+    allowNull: false, validate: {
+        min: 1000000000, 
+        max: 9999999999  
+      }
+
+   }
 
 }, {
     timestamps: true,
