@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Product = require('../models/products');
 const Order = require('../models/orders');
+const Client = require('../models/clients');
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -11,10 +12,10 @@ const name_authorization = process.env.authorization
 
 router.post('/',async (req,res) => {
     try{
-     const {price,quantity,referenceNo,orderDate,shippingDate,address,city,country,zipCode,productId} = req.body
+     const {price,quantity,referenceNo,orderDate,shippingDate,address,city,country,zipCode,clientId} = req.body
      const order = await Order.create({price: price, quantity: quantity, referenceNo: referenceNo, 
         orderDate: orderDate, shippingDate: shippingDate, city: city, country: country, 
-        zipCode: zipCode, productId: productId,address: address})
+        zipCode: zipCode, clientId: clientId,address: address})
 
       res.status(200).json({message: "Orden creada exitosamente"})  
     }catch(e){
@@ -24,11 +25,43 @@ router.post('/',async (req,res) => {
 
 router.get('/',async(req, res) =>{
 try{
-const order = await Order.findAll();
+const order = await Order.findAll({
+  include: [{
+    model: Client,
+    attributes: ['firstname','lastname','nit']
+  }]
+});
 res.status(200).json({message: "Ordenes encontradas exitosamente", data: order });
 }catch(e){
 res.status(500).json({message: `Error al mostrar las ordenes ${e.message}`})
 }
+})
+
+router.put('/:id',async(req,res)=>{
+  try{
+  const {id} = req.params
+  const {price,quantity,referenceNo,orderDate,shippingDate,address,city,country,zipCode,clientId}= req.body
+  const order = await Order.findByPk(id)
+  await order.update({price: price, quantity: quantity, referenceNo: referenceNo, 
+    orderDate: orderDate, shippingDate: shippingDate, city: city, country: country, 
+    zipCode: zipCode, clientId: clientId,address: address})
+
+    res.status(200).json({message: 'Orden actualizado con éxito'})
+
+  }catch(e){
+   res.status(500).json({message: `Error al actualizar la orden ${e.message}`})
+  }
+})
+
+router.delete('/:id',async(req,res) =>{
+ try{
+const {id} = req.params
+const order = await Order.findByPk(id)
+await order.destroy();
+res.status(200).json({message: 'Orden eliminada con éxito'})
+ }catch(e){
+res.status(500).json({message: `Error al eliminar la orden ${e.message}`})
+ }
 })
 
 

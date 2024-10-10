@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../sequelize'); // Importa la configuración de Sequelize
-const Product = require('./products');
+const Client = require('./clients');
 
 const Order = sequelize.define('orders', {
     referenceNo: {
@@ -15,11 +15,11 @@ const Order = sequelize.define('orders', {
         type: DataTypes.BIGINT,
         allowNull: false
     },  
-    productId: {
+    clientId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: Product, // Nombre del modelo referenciado
+            model: Client, // Nombre del modelo referenciado
             key: 'id'        // Llave a la que hace referencia
         },
         allowNull: false
@@ -56,7 +56,7 @@ const Order = sequelize.define('orders', {
 });
 
 
-Order.belongsTo(Product, { foreignKey: 'productId' });
-Product.hasMany(Order, { foreignKey: 'productId' });
+Order.belongsTo(Client, { foreignKey: 'clientId' });
+Client.hasMany(Order, { foreignKey: 'clientId' });
 
 module.exports = Order;

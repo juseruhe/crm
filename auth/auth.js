@@ -46,13 +46,19 @@ function validateToken(req, res, next) {
 router.post('/register', async (req, res) => {
     const {  email, password,roleId,firstname,lastname} = req.body;
 
+ 
+
     if ( !email || !password) {
         return res.status(400).json({ message: 'Faltan el nombre de usuario, el correo o la contraseña.' });
     }
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ email, password: hashedPassword,roleId: roleId});
+     
+        const user = await User.create({  firstname: firstname,lastname: lastname,
+            email: email, password: hashedPassword,roleId: roleId
+           });
+
         res.status(201).json({ message: 'Usuario registrado con éxito.' });
     } catch (error) {
         res.status(500).json({ message: `Error al registrar el usuario. ${error.message}` });
