@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../sequelize'); // Importa la configuración de Sequelize
 
+
 const Client = sequelize.define('clients', {
     firstname: {
         type: DataTypes.STRING,

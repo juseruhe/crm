@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../sequelize'); // Importa la configuración de Sequelize
 const Client = require('./clients');
 
+
 const Order = sequelize.define('orders', {
     referenceNo: {
         type: DataTypes.STRING,
@@ -58,5 +59,7 @@ const Order = sequelize.define('orders', {
 
 Order.belongsTo(Client, { foreignKey: 'clientId' });
 Client.hasMany(Order, { foreignKey: 'clientId' });
+
+
 
 module.exports = Order;

@@ -98,4 +98,5 @@ router.get('/protected', authenticateToken, (req, res) => {
     res.json({ message: 'Estás autenticado y puedes acceder a esta ruta protegida.', user: req.user });
 });
 
+
 module.exports = router;

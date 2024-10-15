@@ -9,6 +9,8 @@ const roleRoutes = require('./role/role');
 const categoryRoutes = require('./category/category');
 const productRoutes = require('./product/product');
 const orderRoutes = require('./order/order');
+const orderProductRoutes = require('./order-product/order-product');
+const userRoutes = require('./user/user');
 const {validateToken} = require('./middleware/authenticateToken');
 const cors = require('cors');
 const https = require('https'); 
@@ -45,6 +47,8 @@ app.use('/api/role',validateToken,roleRoutes);
 app.use('/api/category',validateToken,categoryRoutes);
 app.use('/api/product/',validateToken,productRoutes);
 app.use('/api/order/',validateToken,orderRoutes);
+app.use('/api/order-product/',validateToken,orderProductRoutes);
+app.use('/api/user',validateToken,userRoutes);
 
 // Verificar si existen los archivos de los certificados SSL
 const sslOptions = {

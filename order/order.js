@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const Product = require('../models/products');
 const Order = require('../models/orders');
 const Client = require('../models/clients');
+const OrderProduct = require('../models/order-products');
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;

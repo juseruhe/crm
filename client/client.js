@@ -3,7 +3,9 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Client = require('../models/clients');
-
+const Order = require('../models/orders');
+const OrderProduct = require('../models/order-products');
+const Product = require('../models/products');
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 const name_authorization = process.env.authorization
@@ -24,7 +26,12 @@ router.post('/',async(req,res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const clients = await Client.findAll();
+        const clients = await Client.findAll({
+            include: [{
+                model: Order,
+                attributes: ['referenceNo']
+            }]
+        });
         res.status(200).json(clients);
     } catch (error) {
         res.status(500).json({ error: error.message });
