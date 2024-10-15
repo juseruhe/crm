@@ -26,12 +26,7 @@ router.post('/',async(req,res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const clients = await Client.findAll({
-            include: [{
-                model: Order,
-                attributes: ['referenceNo']
-            }]
-        });
+        const clients = await Client.findAll();
         res.status(200).json(clients);
     } catch (error) {
         res.status(500).json({ error: error.message });
