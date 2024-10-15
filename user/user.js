@@ -52,8 +52,10 @@ router.put('/:id',async(req,res) => {
     const {id} = req.params
     const {  email, password,roleId,firstname,lastname} = req.body;
     const user = await User.findByPk(id)
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    
     user.update({
-        firstname: firstname, lastname: lastname, email: email, password: password, roleId: roleId
+        firstname: firstname, lastname: lastname, email: email, password: hashedPassword, roleId: roleId
     })
     res.status(200).json({message: 'Usuario actualizado exitosamente'})
     }catch(e){
