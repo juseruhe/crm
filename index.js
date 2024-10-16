@@ -2,7 +2,7 @@ require('dotenv').config(); // Carga las variables de entorno desde .env
 const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('./sequelize');
-<<<<<<< HEAD
+
 const authRoutes = require('./routers/auth');
 const urlRoutes = require('./routers/url');
 const clientRoutes = require('./routers/client');
@@ -12,17 +12,6 @@ const productRoutes = require('./routers/product');
 const orderRoutes = require('./routers/order');
 const orderProductRoutes = require('./routers/order-product');
 const userRoutes = require('./routers/user');
-=======
-const authRoutes = require('./auth/auth');
-const urlRoutes = require('./url/url');
-const clientRoutes = require('./client/client');
-const roleRoutes = require('./role/role');
-const categoryRoutes = require('./category/category');
-const productRoutes = require('./product/product');
-const orderRoutes = require('./order/order');
-const orderProductRoutes = require('./order-product/order-product');
-const userRoutes = require('./user/user');
->>>>>>> d519c097f90cc200bea4771baabda59c3118a1a0
 const {validateToken} = require('./middleware/authenticateToken');
 const cors = require('cors');
 const https = require('https'); 

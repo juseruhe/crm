@@ -179,7 +179,6 @@
         }
       }
     },
-<<<<<<< HEAD
     "/api/url/topUrlsExpired": {
       "post": {
         "description": "",
@@ -216,8 +215,6 @@
         }
       }
     },
-=======
->>>>>>> d519c097f90cc200bea4771baabda59c3118a1a0
     "/api/url/getUrls": {
       "get": {
         "description": "",
@@ -920,11 +917,7 @@
                 "country": {
                   "example": "any"
                 },
-<<<<<<< HEAD
                 "expiredDate": {
-=======
-                "zipCode": {
->>>>>>> d519c097f90cc200bea4771baabda59c3118a1a0
                   "example": "any"
                 },
                 "clientId": {
@@ -1007,11 +1000,7 @@
                 "country": {
                   "example": "any"
                 },
-<<<<<<< HEAD
                 "expiredDate": {
-=======
-                "zipCode": {
->>>>>>> d519c097f90cc200bea4771baabda59c3118a1a0
                   "example": "any"
                 },
                 "clientId": {
@@ -1181,8 +1170,6 @@
           }
         }
       }
-<<<<<<< HEAD
-=======
     },
     "/api/user/": {
       "post": {
@@ -1230,8 +1217,125 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
->>>>>>> d519c097f90cc200bea4771baabda59c3118a1a0
+    },
+    "/api/user/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                },
+                "roleId": {
+                  "example": "any"
+                },
+                "firstname": {
+                  "example": "any"
+                },
+                "lastname": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }
