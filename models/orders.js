@@ -45,8 +45,13 @@ const Order = sequelize.define('orders', {
         type: DataTypes.STRING,
         allowNull: false
     },
+<<<<<<< HEAD
     expiredDate: {
         type: DataTypes.DATE,
+=======
+    zipCode: {
+        type: DataTypes.STRING,
+>>>>>>> d519c097f90cc200bea4771baabda59c3118a1a0
         allowNull: true
     }
 
