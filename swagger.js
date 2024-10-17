@@ -1,4 +1,5 @@
 const swaggerAutogen = require('swagger-autogen')();
+const roleDocs = require('./docs/role-docs');
 
 const doc = {
   info: {
@@ -22,10 +23,7 @@ const doc = {
       description: 'Rutas de sitios activos',
       security: [{ unoweb_authorization: [] }] 
     },
-    '/api/role': {
-      description: 'Rutas de roles',
-      security: [{ unoweb_authorization: [] }] 
-    },
+    roleDocs,
     '/api/client': {
         description: 'Rutas de clientes',
         security: [{ unoweb_authorization: [] }] 
